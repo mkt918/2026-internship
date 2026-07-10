@@ -175,8 +175,8 @@ function showResult(d){
   const grid = document.getElementById('r-grid');
   grid.innerHTML =
     row('📍', '訪問先住所', addrValue) +
-    row('🕐', '実施時間', d.time) +
     row('⏰', '集合時間', d.meet_time) +
+    row('🕐', '実施時間', d.time) +
     row('🚩', '集合場所', d.meet_place) +
     row('🚃', 'アクセス（最寄り駅: ' + (d.station||'') + '　約' + (d.distance||'') + 'km）', d.access) +
     row('🚲', '自転車での訪問', d.bike + (d.bike_park ? '　'+d.bike_park : '')) +
@@ -212,7 +212,7 @@ function doSearch(){
   }
   const d = DATA[code];
   if(!d){
-    showError('該当する生徒が見つかりません。番号を確認してください（長期欠席等で対象外の場合もあります）');
+    showError('該当する生徒が見つかりません。番号を確認してください');
     return;
   }
   showResult(d);
