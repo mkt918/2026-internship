@@ -92,6 +92,43 @@
     padding:30px 20px;
   }
 
+  .phone-card{
+    width:100%;background:#fff;border-radius:14px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom:20px;overflow:hidden;
+  }
+  .phone-toggle{
+    width:100%;background:#fff;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 20px;font-size:0.95rem;font-weight:bold;color:#1a3a5c;
+  }
+  .phone-toggle .arrow{transition:transform 0.2s;color:#999;}
+  .phone-toggle.open .arrow{transform:rotate(180deg);}
+  .phone-body{
+    max-height:0;overflow:hidden;transition:max-height 0.25s ease;
+    padding:0 20px;
+  }
+  .phone-body.open{max-height:2000px;padding:0 20px 20px;}
+  .phone-body .prep{
+    background:#f4f6fa;border-radius:8px;padding:12px 16px;
+    font-size:0.82rem;color:#555;margin-bottom:16px;line-height:1.7;
+  }
+  .phone-step{margin-bottom:14px;}
+  .phone-step .step-label{
+    font-size:0.78rem;font-weight:bold;color:#1a3a5c;margin-bottom:4px;
+  }
+  .phone-step .script{
+    background:#eef4fb;border-left:3px solid #1a6fc4;
+    border-radius:0 8px 8px 0;padding:10px 14px;
+    font-size:0.85rem;color:#333;line-height:1.7;white-space:pre-wrap;
+  }
+  .phone-memo{
+    margin-top:16px;border:1px dashed #ccc;border-radius:8px;padding:14px 16px;
+  }
+  .phone-memo .memo-title{font-size:0.8rem;font-weight:bold;color:#777;margin-bottom:8px;}
+  .phone-memo ul{list-style:none;font-size:0.85rem;color:#555;line-height:2;}
+  .phone-memo li{border-bottom:1px dotted #ddd;padding-bottom:2px;}
+
   footer{margin-top:auto;padding-top:40px;font-size:0.75rem;color:#aaa;}
 
   @media (max-width:480px){
@@ -133,6 +170,69 @@
 
   <div class="placeholder" id="placeholder">
     番号を入力してください
+  </div>
+
+  <div class="phone-card">
+    <button class="phone-toggle" id="phone-toggle">
+      <span>📞 持ち物・服装・集合場所を確認する電話のかけ方</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="phone-body" id="phone-body">
+      <div class="prep">
+        電話をかける前に準備するもの<br>
+        ・学校名／自分の名前　・訪問予定日　・聞きたいこと（持ち物・服装・集合場所）をメモした紙
+      </div>
+
+      <div class="phone-step">
+        <div class="step-label">① 名乗る</div>
+        <div class="script">もしもし、お世話になっております。
+私、〇〇中学校3年の（自分の名前）と申します。
+〇月〇日にインターンシップでお伺いする予定の者です。
+ご担当の（担当者名）様はいらっしゃいますでしょうか。</div>
+      </div>
+
+      <div class="phone-step">
+        <div class="step-label">② 要件を伝える</div>
+        <div class="script">お忙しいところ失礼いたします。
+〇月〇日のインターンシップについて、いくつか確認させていただきたいことがあり、お電話いたしました。
+今、少しお時間よろしいでしょうか。</div>
+      </div>
+
+      <div class="phone-step">
+        <div class="step-label">③ 持ち物を確認する</div>
+        <div class="script">当日の持ち物について確認させてください。
+何か用意しておくものはございますでしょうか。</div>
+      </div>
+
+      <div class="phone-step">
+        <div class="step-label">④ 服装を確認する</div>
+        <div class="script">服装についてもお伺いしたいのですが、
+私服でよろしいでしょうか。それとも指定の服装などございますでしょうか。</div>
+      </div>
+
+      <div class="phone-step">
+        <div class="step-label">⑤ 集合場所を確認する</div>
+        <div class="script">当日の集合場所を教えていただけますでしょうか。</div>
+      </div>
+
+      <div class="phone-step">
+        <div class="step-label">⑥ 締めくくる</div>
+        <div class="script">ありがとうございます。確認させていただきたいことは以上です。
+当日はどうぞよろしくお願いいたします。
+それでは失礼いたします。</div>
+      </div>
+
+      <div class="phone-memo">
+        <div class="memo-title">📝 電話で聞いた内容をメモしよう</div>
+        <ul>
+          <li>持ち物：</li>
+          <li>服装：</li>
+          <li>集合場所：</li>
+          <li>集合時間：</li>
+          <li>その他：</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </main>
 
@@ -224,6 +324,13 @@ document.getElementById('code-input').addEventListener('keydown', e=>{
 });
 document.getElementById('code-input').addEventListener('input', e=>{
   e.target.value = e.target.value.replace(/[^\d]/g,'').slice(0,4);
+});
+
+const phoneToggle = document.getElementById('phone-toggle');
+const phoneBody = document.getElementById('phone-body');
+phoneToggle.addEventListener('click', ()=>{
+  phoneToggle.classList.toggle('open');
+  phoneBody.classList.toggle('open');
 });
 </script>
 
