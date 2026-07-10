@@ -120,8 +120,6 @@
 <main>
   <div id="result">
     <div class="profile-card">
-      <div class="name" id="r-name"></div>
-      <div class="furigana" id="r-furigana"></div>
       <div class="class-info" id="r-class"></div>
     </div>
     <div class="company-card">
@@ -164,16 +162,19 @@ function showResult(d){
   document.getElementById('placeholder').style.display = 'none';
   document.getElementById('result').style.display = 'block';
 
-  document.getElementById('r-name').textContent = d.name;
-  document.getElementById('r-furigana').textContent = d.furigana;
   document.getElementById('r-class').textContent = `${d.grade}年${d.class}組 ${d.number}番`;
 
   document.getElementById('r-company').textContent = d.company;
   document.getElementById('r-date').textContent = d.date;
 
+  const mapUrl = d.addr ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.addr)}` : '';
+  const addrValue = d.addr
+    ? `${d.addr}　<a href="${mapUrl}" target="_blank" rel="noopener" style="color:#1a6fc4;font-weight:bold;">📍地図で見る</a>`
+    : '';
+
   const grid = document.getElementById('r-grid');
   grid.innerHTML =
-    row('📍', '訪問先住所', d.addr) +
+    row('📍', '訪問先住所', addrValue) +
     row('🕐', '実施時間', d.time) +
     row('⏰', '集合時間', d.meet_time) +
     row('🚩', '集合場所', d.meet_place) +
