@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026年インターンシップ</title>
+<title>2026年インターンシップ 訪問先確認</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
@@ -14,96 +14,217 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:40px 20px;
+    padding:40px 16px;
   }
-  header{
-    text-align:center;
-    margin-bottom:40px;
+  header{text-align:center;margin-bottom:28px;}
+  header h1{font-size:1.6rem;color:#1a3a5c;margin-bottom:6px;}
+  header p{color:#667;font-size:0.9rem;}
+
+  .search-box{
+    width:100%;max-width:420px;
+    background:#fff;border-radius:14px;
+    padding:24px;box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom:24px;
   }
-  header h1{
-    font-size:1.8rem;
-    color:#1a3a5c;
-    margin-bottom:6px;
+  .search-box label{
+    display:block;font-size:0.85rem;color:#555;margin-bottom:8px;
   }
-  header p{
-    color:#667;
-    font-size:0.95rem;
+  .input-row{display:flex;gap:8px;}
+  #code-input{
+    flex:1;font-size:1.4rem;letter-spacing:0.15em;text-align:center;
+    padding:12px;border:2px solid #ccd6e0;border-radius:8px;
+    font-family:monospace;
   }
-  main{
-    width:100%;
-    max-width:720px;
+  #code-input:focus{outline:none;border-color:#1a3a5c;}
+  #search-btn{
+    padding:12px 20px;background:#1a3a5c;color:#fff;border:none;
+    border-radius:8px;font-size:1rem;cursor:pointer;font-weight:bold;
   }
-  .card-list{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
+  #search-btn:hover{background:#12293f;}
+  .hint{font-size:0.75rem;color:#999;margin-top:8px;text-align:center;}
+  .error-msg{
+    color:#c0392b;font-size:0.85rem;margin-top:10px;text-align:center;
+    display:none;
   }
-  .card{
-    background:#fff;
-    border-radius:10px;
-    padding:20px 22px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.06);
-    display:flex;
-    align-items:center;
-    gap:16px;
-    text-decoration:none;
-    color:inherit;
-    transition:transform 0.15s, box-shadow 0.15s;
+
+  main{width:100%;max-width:640px;}
+
+  #result{display:none;}
+  .profile-card{
+    background:#1a3a5c;color:#fff;border-radius:14px 14px 0 0;
+    padding:20px 24px;
   }
-  .card:hover{
-    transform:translateY(-2px);
-    box-shadow:0 4px 14px rgba(0,0,0,0.1);
+  .profile-card .name{font-size:1.3rem;font-weight:bold;}
+  .profile-card .furigana{font-size:0.8rem;opacity:0.8;}
+  .profile-card .class-info{font-size:0.85rem;margin-top:4px;opacity:0.9;}
+
+  .company-card{
+    background:#fff;border-radius:0 0 14px 14px;
+    padding:0 0 20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom:20px;
   }
-  .card .icon{
-    font-size:1.8rem;
-    flex-shrink:0;
+  .company-header{
+    padding:20px 24px 16px;border-bottom:1px solid #eee;
   }
-  .card .text h2{
-    font-size:1.05rem;
-    color:#1a3a5c;
-    margin-bottom:4px;
+  .company-header h2{font-size:1.3rem;color:#1a3a5c;margin-bottom:4px;}
+  .company-header .date-badge{
+    display:inline-block;background:#e8f0fa;color:#1a3a5c;
+    font-size:0.85rem;font-weight:bold;padding:3px 12px;border-radius:20px;
+    margin-top:6px;
   }
-  .card .text p{
-    font-size:0.85rem;
-    color:#888;
+
+  .info-grid{padding:16px 24px 0;}
+  .info-row{
+    display:flex;gap:14px;padding:12px 0;border-bottom:1px dashed #eee;
   }
+  .info-row:last-child{border-bottom:none;}
+  .info-row .icon{font-size:1.2rem;width:28px;flex-shrink:0;text-align:center;}
+  .info-row .label{
+    font-size:0.72rem;color:#999;margin-bottom:3px;
+  }
+  .info-row .value{
+    font-size:0.9rem;color:#333;line-height:1.5;white-space:pre-wrap;
+  }
+  .info-row .value:empty::before{content:"（記載なし）";color:#ccc;}
+
   .placeholder{
-    text-align:center;
-    color:#aaa;
-    font-size:0.85rem;
-    margin-top:30px;
-    padding:20px;
-    border:1px dashed #ccc;
-    border-radius:10px;
+    text-align:center;color:#aaa;font-size:0.85rem;
+    padding:30px 20px;
   }
-  footer{
-    margin-top:auto;
-    padding-top:40px;
-    font-size:0.75rem;
-    color:#aaa;
+
+  footer{margin-top:auto;padding-top:40px;font-size:0.75rem;color:#aaa;}
+
+  @media (max-width:480px){
+    .info-row{flex-direction:column;gap:2px;}
+    .info-row .icon{width:auto;}
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>📋 2026年インターンシップ</h1>
-  <p>インターンシップ関連の各種資料・ツールをまとめたページです</p>
+  <h1>🔍 2026年インターンシップ 訪問先確認</h1>
+  <p>自分の4桁番号を入力すると訪問先企業の情報が表示されます</p>
 </header>
 
+<div class="search-box">
+  <label for="code-input">4桁番号（学年+組+出席番号2桁）</label>
+  <div class="input-row">
+    <input type="text" id="code-input" maxlength="4" inputmode="numeric" placeholder="例: 1501">
+    <button id="search-btn">確認</button>
+  </div>
+  <div class="hint">例）1年5組1番 → 1501　／　2年4組30番 → 2430</div>
+  <div class="error-msg" id="error-msg"></div>
+</div>
+
 <main>
-  <div class="card-list">
-    <!-- ここに各コンテンツへのリンクカードを追加していく -->
+  <div id="result">
+    <div class="profile-card">
+      <div class="name" id="r-name"></div>
+      <div class="furigana" id="r-furigana"></div>
+      <div class="class-info" id="r-class"></div>
+    </div>
+    <div class="company-card">
+      <div class="company-header">
+        <h2 id="r-company"></h2>
+        <span class="date-badge" id="r-date"></span>
+      </div>
+      <div class="info-grid" id="r-grid"></div>
+    </div>
   </div>
 
-  <div class="placeholder">
-    コンテンツは準備中です。追加が必要な資料があれば教えてください。
+  <div class="placeholder" id="placeholder">
+    番号を入力してください
   </div>
 </main>
 
-<footer>
-  江南高校 インターンシップ管理
-</footer>
+<footer>江南高校 インターンシップ管理</footer>
+
+<script>
+let DATA = null;
+
+async function loadData(){
+  const res = await fetch('student_lookup.json');
+  DATA = await res.json();
+}
+loadData();
+
+function row(icon, label, value){
+  if(!value) return '';
+  return `<div class="info-row">
+    <div class="icon">${icon}</div>
+    <div>
+      <div class="label">${label}</div>
+      <div class="value">${value}</div>
+    </div>
+  </div>`;
+}
+
+function showResult(d){
+  document.getElementById('placeholder').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+
+  document.getElementById('r-name').textContent = d.name;
+  document.getElementById('r-furigana').textContent = d.furigana;
+  document.getElementById('r-class').textContent = `${d.grade}年${d.class}組 ${d.number}番`;
+
+  document.getElementById('r-company').textContent = d.company;
+  document.getElementById('r-date').textContent = d.date;
+
+  const grid = document.getElementById('r-grid');
+  grid.innerHTML =
+    row('📍', '訪問先住所', d.addr) +
+    row('🕐', '実施時間', d.time) +
+    row('⏰', '集合時間', d.meet_time) +
+    row('🚩', '集合場所', d.meet_place) +
+    row('🚃', 'アクセス（最寄り駅: ' + (d.station||'') + '　約' + (d.distance||'') + 'km）', d.access) +
+    row('🚲', '自転車での訪問', d.bike + (d.bike_park ? '　'+d.bike_park : '')) +
+    row('🚪', '当日の受付方法', d.reception) +
+    row('👤', '当日ご担当者', d.contact) +
+    row('📞', '緊急連絡先', d.emergency) +
+    row('💼', '体験業務内容', d.work) +
+    row('⚠️', '体験上の注意点', d.notes) +
+    row('👕', '服装・持ち物', d.attire) +
+    row('🍱', '昼食について', d.lunch) +
+    row('📝', '特記事項', d.special);
+}
+
+function showError(msg){
+  document.getElementById('placeholder').style.display = 'none';
+  document.getElementById('result').style.display = 'none';
+  const err = document.getElementById('error-msg');
+  err.textContent = msg;
+  err.style.display = 'block';
+}
+
+function doSearch(){
+  const code = document.getElementById('code-input').value.trim();
+  document.getElementById('error-msg').style.display = 'none';
+
+  if(!/^\d{4}$/.test(code)){
+    showError('4桁の数字で入力してください');
+    return;
+  }
+  if(!DATA){
+    showError('データ読み込み中です。少し待ってから再度お試しください');
+    return;
+  }
+  const d = DATA[code];
+  if(!d){
+    showError('該当する生徒が見つかりません。番号を確認してください（長期欠席等で対象外の場合もあります）');
+    return;
+  }
+  showResult(d);
+}
+
+document.getElementById('search-btn').addEventListener('click', doSearch);
+document.getElementById('code-input').addEventListener('keydown', e=>{
+  if(e.key === 'Enter') doSearch();
+});
+document.getElementById('code-input').addEventListener('input', e=>{
+  e.target.value = e.target.value.replace(/[^\d]/g,'').slice(0,4);
+});
+</script>
 
 </body>
 </html>
