@@ -132,11 +132,21 @@
   .guide-card{
     width:100%;max-width:640px;background:#fff;border-radius:14px;
     box-shadow:0 2px 10px rgba(0,0,0,0.08);
-    margin-bottom:20px;padding:22px 22px 24px;
+    margin-bottom:20px;overflow:hidden;
   }
-  .guide-card h2{
-    font-size:1.05rem;color:#1a3a5c;margin-bottom:4px;
+  .guide-toggle{
+    width:100%;background:#fff;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 20px;font-size:0.95rem;font-weight:bold;color:#1a3a5c;
+    text-align:left;
   }
+  .guide-toggle .arrow{transition:transform 0.2s;color:#999;flex-shrink:0;margin-left:10px;}
+  .guide-toggle.open .arrow{transform:rotate(180deg);}
+  .guide-body{
+    max-height:0;overflow:hidden;transition:max-height 0.25s ease;
+    padding:0 22px;
+  }
+  .guide-body.open{max-height:3000px;padding:0 22px 24px;}
   .guide-card .guide-sub{
     font-size:0.78rem;color:#888;margin-bottom:16px;
   }
@@ -197,7 +207,11 @@
 </header>
 
 <div class="guide-card">
-  <h2>📌 令和8年度 インターンシップ 事前指導資料（生徒用）</h2>
+  <button class="guide-toggle" id="guide-toggle">
+    <span>📌 令和8年度 インターンシップ 事前指導資料（生徒用）</span>
+    <span class="arrow">▼</span>
+  </button>
+  <div class="guide-body" id="guide-body">
   <div class="guide-sub">7月17日（金）全日程終了後</div>
 
   <div class="step">
@@ -284,6 +298,7 @@
         <tr><th>提出先</th><td>1年生：担任の先生　／　2年生：担任の先生</td></tr>
       </table>
     </div>
+  </div>
   </div>
 </div>
 
@@ -467,6 +482,13 @@ document.getElementById('code-input').addEventListener('keydown', e=>{
 });
 document.getElementById('code-input').addEventListener('input', e=>{
   e.target.value = e.target.value.replace(/[^\d]/g,'').slice(0,4);
+});
+
+const guideToggle = document.getElementById('guide-toggle');
+const guideBody = document.getElementById('guide-body');
+guideToggle.addEventListener('click', ()=>{
+  guideToggle.classList.toggle('open');
+  guideBody.classList.toggle('open');
 });
 
 const phoneToggle = document.getElementById('phone-toggle');
